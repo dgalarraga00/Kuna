@@ -23,7 +23,8 @@ class Paciente(models.Model):
     observaciones = models.TextField(verbose_name="Observaciones", blank=True, default="")
 
     def __str__(self):
-        return f"{self.nombre} {self.apellido}"
+        return f'{self.nombre}, {self.apellido}'
+    
 
     # Calcula la edad del paciente
     @property
@@ -33,19 +34,18 @@ class Paciente(models.Model):
             return hoy.year - self.fecha_nacimiento.year - ((hoy.month, hoy.day) < (self.fecha_nacimiento.month, self.fecha_nacimiento.day))
         return None
 
-    # Ultima medicion cargada (mediciones ordenadas por -fecha)
-    @property
+    # Ultima medicion cargada
+    @property 
     def ultima_medicion(self):
-        return self.mediciones.first()
+        return self.mediciones.first()                       
 
     # Planes nutricionales del paciente, a traves de sus mediciones
     @property
     def planes(self):
         return Plan.objects.filter(medicion__paciente=self)
 
-
-# Modelo de cada medicion/consulta. Registra los datos antropometricos
-# de un paciente en un momento puntual (peso, talla, pliegues, actividad).
+ 
+# Modelo de cada medicion. Registra los datos antropometricos de un paciente(peso, talla, pliegues, actividad).
 class Medicion(models.Model):
     class NivelActividad(models.TextChoices):
         SEDENTARIO = "1.2", "Sedentario (sin ejercicio)"
@@ -193,6 +193,50 @@ class Plan(models.Model):
         for comida in self.comidas.all():
             total += comida.calcular_macros(nombre_macro)
         return round(total,2)
+
+    # Calcula los gramos de proteína del paciente
+    @property
+    def g_proteina(self):
+        gramos_proteina = float(self.medicion.peso) * 2
+        return round(gramos_proteina,2)
+    
+    # Calcula los gramos de grasa del paciente
+    @property
+    def g_grasa(self):
+        gramos_grasa = float(self.medicion.peso) * 0.8
+        return round(gramos_grasa,2)
+
+    # Calcula las kcal de las proteinas
+    @property
+    def kcal_proteina(self):
+        kcal_prot = self.g_proteina * 4
+        return round(kcal_prot,2)
+    
+    # Calcula las kcal de las grasas
+    @property
+    def kcal_grasa(self):
+        kcal_gr = self.g_grasa * 9
+        return round(kcal_gr,2)
+    
+    # Calcula las kcal de los carbohidratos
+    @property
+    def kcal_carbos(self):
+        if self.calorias_meta is None:
+            return None
+        kcal_cho = self.calorias_meta - self.kcal_proteina - self.kcal_grasa
+        if kcal_cho < 0:
+            return None
+        return round(kcal_cho,2)
+
+    # Calcula los gramos de carbohidratos
+    @property
+    def gramos_carbos(self):
+        if self.kcal_carbos is None:
+            return None
+        g_cho = self.kcal_carbos / 4
+        return round(g_cho,2)
+
+
 
 # Modelo de comidas que tiene relacion con plato
 class TiempoComida(models.Model):
