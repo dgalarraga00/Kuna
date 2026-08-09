@@ -42,9 +42,39 @@ class MotorCalculoTests(TestCase):
 
         )
 # esta es la funcion de prueba, le pasamos dos valores, lo que hace  codigo y lo que yo espero
+        
     def test_geb_masculino(self):
-        edad = self.paciente.edad
-        geb_esperado = (10*70) + (6.25*170) - (5*edad) +5
-        self.assertEqual(self.medicion.geb, round(geb_esperado,2))
+            edad = self.paciente.edad
+            geb_esperado = (10*70) + (6.25*170) - (5*edad) +5
+            self.assertEqual(self.medicion.geb, round(geb_esperado,2))
+
+    def test_geb_femenino(self):
+        self.paciente_f = Paciente.objects.create(
+            nombre="Maria",
+            apellido="Lopez",
+            email="[EMAIL_ADDRESS]",
+            telefono="0989565654",
+            fecha_nacimiento=date(1999,5,2),
+            restricciones_alimentarias="Pescado",
+            alergias_alimentarias="Pescado Mariscos Gluten",
+            enfermedades_existentes="diabetes tipo 2",
+            medicamentos_actuales="Insulina",
+            sexo=Paciente.Sexo.FEMENINO,
+            observaciones="Tiene manchas detras del cuello"
+        )
+        self.medicion_f = Medicion.objects.create(
+            paciente=self.paciente_f,
+            peso=70,
+            talla=170,
+            pliegue_1=10,
+            pliegue_2=10,
+            pliegue_3=10,
+            actividad_fisica=Medicion.NivelActividad.MODERADO,
+        )
+
+        edad = self.paciente_f.edad
+        geb_esperado = (10*70) + (6.25*170) - (5*edad) - 161
+        self.assertEqual(self.medicion_f.geb, round(geb_esperado,2))
+        
     
         
