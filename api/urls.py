@@ -10,5 +10,6 @@ router.register(r'tiempos_comida', views.TiempoComidaViewSet)
 
 urlpatterns = [
     path('ingredientes/', views.buscar_ingredientes, name='buscar-ingredientes'),
+    path('planes/<int:plan_id>/comparar/', views.comparar_plan, name='comparar-plan'),
 ] + router.urls
   
