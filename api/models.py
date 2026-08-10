@@ -134,6 +134,10 @@ class Ingrediente(models.Model):
     potasio = models.DecimalField(max_digits=6, decimal_places=2)
     es_local = models.BooleanField(default=False)
 
+    def __str__(self):
+        return self.nombre
+    
+
 
 # Modelo de cada plato
 class Plato(models.Model):
