@@ -130,8 +130,8 @@ class Ingrediente(models.Model):
     azucares = models.DecimalField(max_digits=6, decimal_places=2)
     grasa_saturada = models.DecimalField(max_digits=6, decimal_places=2)
     grasas_trans = models.DecimalField(max_digits=6, decimal_places=2)
-    sodio = models.DecimalField(max_digits=6, decimal_places=2)
-    potasio = models.DecimalField(max_digits=6, decimal_places=2)
+    sodio = models.DecimalField(max_digits=8, decimal_places=2)
+    potasio = models.DecimalField(max_digits=8, decimal_places=2)
     es_local = models.BooleanField(default=False)
 
     def __str__(self):

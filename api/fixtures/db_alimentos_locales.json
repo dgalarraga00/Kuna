@@ -2,6 +2,958 @@
   {
     "model": "api.ingrediente",
     "fields": {
+      "nombre": "Quinua cruda",
+      "calorias": 368.0,
+      "proteina": 14.1,
+      "carbohidratos": 64.2,
+      "grasa_total": 6.1,
+      "fibra": 7.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.7,
+      "grasas_trans": 0.0,
+      "sodio": 5.0,
+      "potasio": 563.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Arroz blanco crudo",
+      "calorias": 365.0,
+      "proteina": 7.1,
+      "carbohidratos": 80.0,
+      "grasa_total": 0.7,
+      "fibra": 1.3,
+      "azucares": 0.1,
+      "grasa_saturada": 0.2,
+      "grasas_trans": 0.0,
+      "sodio": 5.0,
+      "potasio": 115.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Arroz integral crudo",
+      "calorias": 367.0,
+      "proteina": 7.5,
+      "carbohidratos": 76.2,
+      "grasa_total": 2.8,
+      "fibra": 3.4,
+      "azucares": 0.7,
+      "grasa_saturada": 0.6,
+      "grasas_trans": 0.0,
+      "sodio": 5.0,
+      "potasio": 268.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Plátano verde crudo",
+      "calorias": 152.0,
+      "proteina": 1.3,
+      "carbohidratos": 36.7,
+      "grasa_total": 0.3,
+      "fibra": 2.3,
+      "azucares": 1.0,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 4.0,
+      "potasio": 499.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Plátano maduro crudo",
+      "calorias": 122.0,
+      "proteina": 1.3,
+      "carbohidratos": 31.9,
+      "grasa_total": 0.4,
+      "fibra": 2.3,
+      "azucares": 15.0,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 4.0,
+      "potasio": 499.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Yuca cruda",
+      "calorias": 160.0,
+      "proteina": 1.4,
+      "carbohidratos": 38.1,
+      "grasa_total": 0.3,
+      "fibra": 1.8,
+      "azucares": 1.7,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 14.0,
+      "potasio": 271.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Mote crudo (maíz blanco seco)",
+      "calorias": 365.0,
+      "proteina": 9.4,
+      "carbohidratos": 74.3,
+      "grasa_total": 4.7,
+      "fibra": 9.0,
+      "azucares": 0.6,
+      "grasa_saturada": 0.7,
+      "grasas_trans": 0.0,
+      "sodio": 35.0,
+      "potasio": 287.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Chocho desamargado",
+      "calorias": 179.0,
+      "proteina": 15.6,
+      "carbohidratos": 9.8,
+      "grasa_total": 9.7,
+      "fibra": 5.2,
+      "azucares": 0.5,
+      "grasa_saturada": 1.2,
+      "grasas_trans": 0.0,
+      "sodio": 15.0,
+      "potasio": 220.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Máchica (harina de cebada tostada)",
+      "calorias": 350.0,
+      "proteina": 10.5,
+      "carbohidratos": 73.0,
+      "grasa_total": 2.0,
+      "fibra": 15.0,
+      "azucares": 0.8,
+      "grasa_saturada": 0.4,
+      "grasas_trans": 0.0,
+      "sodio": 12.0,
+      "potasio": 450.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Camote crudo",
+      "calorias": 86.0,
+      "proteina": 1.6,
+      "carbohidratos": 20.1,
+      "grasa_total": 0.1,
+      "fibra": 3.0,
+      "azucares": 4.2,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 55.0,
+      "potasio": 337.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Avena en hojuelas (cruda)",
+      "calorias": 389.0,
+      "proteina": 16.9,
+      "carbohidratos": 66.3,
+      "grasa_total": 6.9,
+      "fibra": 10.6,
+      "azucares": 1.0,
+      "grasa_saturada": 1.2,
+      "grasas_trans": 0.0,
+      "sodio": 2.0,
+      "potasio": 429.0,
+      "es_local": false
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Pechuga de pollo cruda (sin piel)",
+      "calorias": 110.0,
+      "proteina": 23.1,
+      "carbohidratos": 0.0,
+      "grasa_total": 1.2,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.3,
+      "grasas_trans": 0.0,
+      "sodio": 65.0,
+      "potasio": 255.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Pierna de pollo cruda (sin piel)",
+      "calorias": 120.0,
+      "proteina": 19.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 4.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 1.1,
+      "grasas_trans": 0.0,
+      "sodio": 85.0,
+      "potasio": 230.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Pospierna/Encuentro de pollo cruda (sin piel)",
+      "calorias": 135.0,
+      "proteina": 17.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 7.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 1.9,
+      "grasas_trans": 0.0,
+      "sodio": 86.0,
+      "potasio": 220.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Pierna y encuentro de pollo crudos (con piel)",
+      "calorias": 210.0,
+      "proteina": 16.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 15.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 4.1,
+      "grasas_trans": 0.0,
+      "sodio": 80.0,
+      "potasio": 200.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Alitas de pollo crudas (con piel)",
+      "calorias": 200.0,
+      "proteina": 18.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 13.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 3.7,
+      "grasas_trans": 0.0,
+      "sodio": 75.0,
+      "potasio": 175.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Lomo de res crudo (corte magro)",
+      "calorias": 130.0,
+      "proteina": 22.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 4.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 1.5,
+      "grasas_trans": 0.0,
+      "sodio": 55.0,
+      "potasio": 340.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Costilla de res cruda (corte graso)",
+      "calorias": 280.0,
+      "proteina": 16.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 24.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 10.0,
+      "grasas_trans": 1.2,
+      "sodio": 65.0,
+      "potasio": 260.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Carne molida de res especial cruda (magra)",
+      "calorias": 135.0,
+      "proteina": 21.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 5.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 2.0,
+      "grasas_trans": 0.2,
+      "sodio": 65.0,
+      "potasio": 320.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Carne molida de res cruda (con grasa)",
+      "calorias": 250.0,
+      "proteina": 17.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 20.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 7.8,
+      "grasas_trans": 1.0,
+      "sodio": 75.0,
+      "potasio": 280.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Lomo de cerdo crudo (magro)",
+      "calorias": 143.0,
+      "proteina": 21.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 6.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 2.1,
+      "grasas_trans": 0.0,
+      "sodio": 50.0,
+      "potasio": 400.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Panceta de cerdo cruda (para fritada/grasa)",
+      "calorias": 350.0,
+      "proteina": 14.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 32.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 11.5,
+      "grasas_trans": 0.0,
+      "sodio": 45.0,
+      "potasio": 220.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Chuleta de cerdo cruda (con grasa y hueso)",
+      "calorias": 230.0,
+      "proteina": 18.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 17.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 6.2,
+      "grasas_trans": 0.0,
+      "sodio": 55.0,
+      "potasio": 300.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Atún fresco crudo (pescado azul)",
+      "calorias": 144.0,
+      "proteina": 23.3,
+      "carbohidratos": 0.0,
+      "grasa_total": 4.9,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 1.3,
+      "grasas_trans": 0.0,
+      "sodio": 39.0,
+      "potasio": 252.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Sardina fresca cruda (pescado azul)",
+      "calorias": 208.0,
+      "proteina": 20.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 14.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 4.1,
+      "grasas_trans": 0.0,
+      "sodio": 95.0,
+      "potasio": 397.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Salmón fresco crudo (pescado azul)",
+      "calorias": 208.0,
+      "proteina": 20.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 13.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 3.1,
+      "grasas_trans": 0.0,
+      "sodio": 59.0,
+      "potasio": 363.0,
+      "es_local": false
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Trucha cruda (pescado azul)",
+      "calorias": 140.0,
+      "proteina": 20.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 6.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 1.2,
+      "grasas_trans": 0.0,
+      "sodio": 52.0,
+      "potasio": 361.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Picudo / Albacora cruda (pescado blanco/semi-graso)",
+      "calorias": 110.0,
+      "proteina": 24.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 1.5,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.4,
+      "grasas_trans": 0.0,
+      "sodio": 45.0,
+      "potasio": 400.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Corvina cruda (pescado blanco)",
+      "calorias": 90.0,
+      "proteina": 19.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 1.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.2,
+      "grasas_trans": 0.0,
+      "sodio": 60.0,
+      "potasio": 350.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Camarón crudo",
+      "calorias": 85.0,
+      "proteina": 20.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 0.5,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 119.0,
+      "potasio": 185.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Aceite para cocinar (girasol o soya)",
+      "calorias": 884.0,
+      "proteina": 0.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 100.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 13.0,
+      "grasas_trans": 0.0,
+      "sodio": 0.0,
+      "potasio": 0.0,
+      "es_local": false
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Aceite de oliva extra virgen",
+      "calorias": 884.0,
+      "proteina": 0.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 100.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 13.8,
+      "grasas_trans": 0.0,
+      "sodio": 2.0,
+      "potasio": 1.0,
+      "es_local": false
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Ajo crudo",
+      "calorias": 149.0,
+      "proteina": 6.4,
+      "carbohidratos": 33.1,
+      "grasa_total": 0.5,
+      "fibra": 2.1,
+      "azucares": 1.0,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 17.0,
+      "potasio": 401.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Cebolla paiteña cruda",
+      "calorias": 40.0,
+      "proteina": 1.1,
+      "carbohidratos": 9.3,
+      "grasa_total": 0.1,
+      "fibra": 1.7,
+      "azucares": 4.2,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 4.0,
+      "potasio": 146.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Sal yodada",
+      "calorias": 0.0,
+      "proteina": 0.0,
+      "carbohidratos": 0.0,
+      "grasa_total": 0.0,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 38758.0,
+      "potasio": 0.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Orégano seco",
+      "calorias": 265.0,
+      "proteina": 9.0,
+      "carbohidratos": 68.9,
+      "grasa_total": 4.2,
+      "fibra": 42.5,
+      "azucares": 4.1,
+      "grasa_saturada": 1.6,
+      "grasas_trans": 0.0,
+      "sodio": 25.0,
+      "potasio": 1260.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Laurel seco (hojas)",
+      "calorias": 313.0,
+      "proteina": 7.6,
+      "carbohidratos": 74.9,
+      "grasa_total": 8.3,
+      "fibra": 26.3,
+      "azucares": 0.0,
+      "grasa_saturada": 2.2,
+      "grasas_trans": 0.0,
+      "sodio": 23.0,
+      "potasio": 529.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Cebada perla cocida",
+      "calorias": 123.0,
+      "proteina": 2.3,
+      "carbohidratos": 28.2,
+      "grasa_total": 0.4,
+      "fibra": 3.8,
+      "azucares": 0.3,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 3.0,
+      "potasio": 93.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Choclo tierno cocido",
+      "calorias": 96.0,
+      "proteina": 3.4,
+      "carbohidratos": 21.0,
+      "grasa_total": 1.5,
+      "fibra": 2.4,
+      "azucares": 4.5,
+      "grasa_saturada": 0.2,
+      "grasas_trans": 0.0,
+      "sodio": 15.0,
+      "potasio": 270.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Pan de agua",
+      "calorias": 265.0,
+      "proteina": 9.0,
+      "carbohidratos": 49.0,
+      "grasa_total": 3.2,
+      "fibra": 2.7,
+      "azucares": 3.0,
+      "grasa_saturada": 0.7,
+      "grasas_trans": 0.0,
+      "sodio": 490.0,
+      "potasio": 115.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Atún en agua (escurrido)",
+      "calorias": 116.0,
+      "proteina": 25.5,
+      "carbohidratos": 0.0,
+      "grasa_total": 0.8,
+      "fibra": 0.0,
+      "azucares": 0.0,
+      "grasa_saturada": 0.2,
+      "grasas_trans": 0.0,
+      "sodio": 338.0,
+      "potasio": 237.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Huevo entero cocido",
+      "calorias": 155.0,
+      "proteina": 12.6,
+      "carbohidratos": 1.1,
+      "grasa_total": 10.6,
+      "fibra": 0.0,
+      "azucares": 1.1,
+      "grasa_saturada": 3.3,
+      "grasas_trans": 0.0,
+      "sodio": 124.0,
+      "potasio": 126.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Clara de huevo cocida",
+      "calorias": 52.0,
+      "proteina": 10.9,
+      "carbohidratos": 0.7,
+      "grasa_total": 0.2,
+      "fibra": 0.0,
+      "azucares": 0.7,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 166.0,
+      "potasio": 163.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Lenteja cocida",
+      "calorias": 116.0,
+      "proteina": 9.0,
+      "carbohidratos": 20.1,
+      "grasa_total": 0.4,
+      "fibra": 7.9,
+      "azucares": 1.8,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 2.0,
+      "potasio": 369.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Fréjol rojo cocido",
+      "calorias": 127.0,
+      "proteina": 8.7,
+      "carbohidratos": 22.8,
+      "grasa_total": 0.5,
+      "fibra": 6.4,
+      "azucares": 0.3,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 2.0,
+      "potasio": 405.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Aguacate ecuatoriano",
+      "calorias": 160.0,
+      "proteina": 2.0,
+      "carbohidratos": 8.5,
+      "grasa_total": 14.7,
+      "fibra": 6.7,
+      "azucares": 0.7,
+      "grasa_saturada": 2.1,
+      "grasas_trans": 0.0,
+      "sodio": 7.0,
+      "potasio": 485.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Maní tostado sin sal",
+      "calorias": 585.0,
+      "proteina": 23.7,
+      "carbohidratos": 21.5,
+      "grasa_total": 49.7,
+      "fibra": 8.0,
+      "azucares": 4.2,
+      "grasa_saturada": 6.9,
+      "grasas_trans": 0.0,
+      "sodio": 6.0,
+      "potasio": 658.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Queso fresco criollo",
+      "calorias": 264.0,
+      "proteina": 18.0,
+      "carbohidratos": 2.5,
+      "grasa_total": 20.0,
+      "fibra": 0.0,
+      "azucares": 2.5,
+      "grasa_saturada": 12.5,
+      "grasas_trans": 0.0,
+      "sodio": 620.0,
+      "potasio": 100.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Tomate de árbol (pulpa)",
+      "calorias": 31.0,
+      "proteina": 1.5,
+      "carbohidratos": 6.8,
+      "grasa_total": 0.2,
+      "fibra": 3.3,
+      "azucares": 3.5,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 4.0,
+      "potasio": 320.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Tomate riñón",
+      "calorias": 18.0,
+      "proteina": 0.9,
+      "carbohidratos": 3.9,
+      "grasa_total": 0.2,
+      "fibra": 1.2,
+      "azucares": 2.6,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 5.0,
+      "potasio": 237.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Lechuga crespa",
+      "calorias": 15.0,
+      "proteina": 1.4,
+      "carbohidratos": 2.9,
+      "grasa_total": 0.2,
+      "fibra": 1.3,
+      "azucares": 0.8,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 28.0,
+      "potasio": 194.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Espinaca fresca",
+      "calorias": 23.0,
+      "proteina": 2.9,
+      "carbohidratos": 3.6,
+      "grasa_total": 0.4,
+      "fibra": 2.2,
+      "azucares": 0.4,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 79.0,
+      "potasio": 558.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Brócoli cocido",
+      "calorias": 35.0,
+      "proteina": 2.4,
+      "carbohidratos": 7.2,
+      "grasa_total": 0.4,
+      "fibra": 3.3,
+      "azucares": 1.4,
+      "grasa_saturada": 0.1,
+      "grasas_trans": 0.0,
+      "sodio": 41.0,
+      "potasio": 293.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Zanahoria amarilla cocida",
+      "calorias": 35.0,
+      "proteina": 0.8,
+      "carbohidratos": 8.2,
+      "grasa_total": 0.2,
+      "fibra": 3.0,
+      "azucares": 3.5,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 58.0,
+      "potasio": 235.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Naranjilla (pulpa)",
+      "calorias": 25.0,
+      "proteina": 0.4,
+      "carbohidratos": 5.9,
+      "grasa_total": 0.1,
+      "fibra": 1.1,
+      "azucares": 3.1,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 3.0,
+      "potasio": 290.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
+      "nombre": "Zapallo cocido",
+      "calorias": 20.0,
+      "proteina": 0.7,
+      "carbohidratos": 4.9,
+      "grasa_total": 0.1,
+      "fibra": 1.1,
+      "azucares": 2.8,
+      "grasa_saturada": 0.0,
+      "grasas_trans": 0.0,
+      "sodio": 1.0,
+      "potasio": 230.0,
+      "es_local": true
+    }
+  },
+  {
+    "model": "api.ingrediente",
+    "fields": {
       "nombre": "Leche entera liquida",
       "calorias": 61.0,
       "proteina": 3.2,
