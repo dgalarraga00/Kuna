@@ -162,11 +162,11 @@ class Plan(models.Model):
         GANANCIA_MUSCULAR = "1.2", "Ganancia muscular"
     medicion = models.ForeignKey(Medicion, on_delete=models.PROTECT, related_name="planes")
     objetivo_plan = models.CharField(max_length=3, choices=Objetivo.choices)
-    calorias_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Calorias del plan", blank=True, default=0)
+    calorias_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Calorias del plan", blank=True, null=True)
     proteinas_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Proteinas del plan", blank=True, default=0)
-    carbohidratos_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Carbohidratos del plan", blank=True, default=0)
+    carbohidratos_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Carbohidratos del plan", blank=True, null=True)
     grasas_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Grasas del plan", blank=True, default=0)
-    cantidad_agua = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Cantidad de agua", blank=True, default=0)
+    cantidad_agua = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Cantidad de agua", blank=True, null=True)
     observaciones = models.TextField(verbose_name="Observaciones", blank=True, default="")
     activo = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -174,6 +174,7 @@ class Plan(models.Model):
 
     def __str__(self):
         return f"Plan de {self.medicion.paciente} ({self.get_objetivo_plan_display()})"
+
 
     # El paciente se deriva de la medicion que originó el plan.
     @property
@@ -236,7 +237,17 @@ class Plan(models.Model):
         g_cho = self.kcal_carbos / 4
         return round(g_cho,2)
 
-
+    # Creamos el poblado de los datos 
+    # *args = Arguments(argumentos sin nombre)
+    # **kwargs = Arguments(argumentos con nombre)
+    def save(self, *args, **kwargs):
+        if self.pk is None:
+            self.calorias_objetivo = self.calorias_meta
+            self.proteinas_objetivo = self.g_proteina
+            self.carbohidratos_objetivo = self.gramos_carbos
+            self.grasas_objetivo = self.g_grasa
+        super().save(*args, **kwargs)
+            
 
 # Modelo de comidas que tiene relacion con plato
 class TiempoComida(models.Model):
