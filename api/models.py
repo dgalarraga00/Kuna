@@ -150,6 +150,9 @@ class Plato(models.Model):
             valor_base = getattr(componente.ingrediente, nombre_macro, 0)
             total += (float(valor_base)/100) * float(componente.gramaje)
         return round(total,2)
+    def __str__(self):
+        return self.nombre
+    
 
 
 # Modelo de componente que relaciona el ingrediente con el plato
