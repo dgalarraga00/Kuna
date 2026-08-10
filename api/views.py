@@ -1,8 +1,8 @@
 from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .models import Ingrediente, Plato, Componente
-from .serializers import IngredienteSerializer, PlatoSerializer, ComponenteSerializer
+from .models import Ingrediente, Plato, Componente, TiempoComida
+from .serializers import IngredienteSerializer, PlatoSerializer, ComponenteSerializer, TiempoComidaSerializer
 from rest_framework import viewsets
 
 # Create your views here.
@@ -21,3 +21,6 @@ class ComponenteViewSet(viewsets.ModelViewSet):
     queryset = Componente.objects.all()
     serializer_class = ComponenteSerializer
     
+class TiempoComidaViewSet(viewsets.ModelViewSet):
+    queryset = TiempoComida.objects.all()
+    serializer_class = TiempoComidaSerializer
