@@ -6,6 +6,9 @@ router = DefaultRouter()
 router.register(r'platos', views.PlatoViewSet)
 router.register(r'componentes', views.ComponenteViewSet)
 router.register(r'tiempos_comida', views.TiempoComidaViewSet)
+router.register(r'pacientes', views.PacienteViewSet)
+router.register(r'mediciones', views.MedicionViewSet)
+router.register(r'planes', views.PlanViewSet)
 
 
 urlpatterns = [

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Ingrediente, Plato, Componente, TiempoComida
+from .models import Ingrediente, Plato, Componente, TiempoComida, Paciente, Medicion, Plan
 
 class IngredienteSerializer(serializers.ModelSerializer):
     class Meta :
@@ -21,4 +21,18 @@ class TiempoComidaSerializer(serializers.ModelSerializer):
          model =TiempoComida
          fields = '__all__'
          
+class PacienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Paciente
+        fields = '__all__' 
+    
+class MedicionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Medicion
+        fields = '__all__' 
+    
+class PlanSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Plan
+        fields = '__all__' 
     

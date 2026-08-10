@@ -2,8 +2,8 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
-from .models import Ingrediente, Plato, Componente, TiempoComida, Plan
-from .serializers import IngredienteSerializer, PlatoSerializer, ComponenteSerializer, TiempoComidaSerializer
+from .models import Ingrediente, Plato, Componente, TiempoComida, Plan, Paciente, Medicion
+from .serializers import IngredienteSerializer, PlatoSerializer, ComponenteSerializer, TiempoComidaSerializer, PacienteSerializer, MedicionSerializer, PlanSerializer
 from rest_framework import viewsets
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
@@ -86,4 +86,16 @@ def exportar_pdf(request, plan_id):
     doc.build(story)
     return response
 
+    
+class PacienteViewSet(viewsets.ModelViewSet):
+    queryset = Paciente.objects.all()
+    serializer_class = PacienteSerializer
+class MedicionViewSet(viewsets.ModelViewSet):
+    queryset = Medicion.objects.all()
+    serializer_class = MedicionSerializer
+
+class PlanViewSet(viewsets.ModelViewSet):
+    queryset = Plan.objects.all()
+    serializer_class = PlanSerializer
+    
     
