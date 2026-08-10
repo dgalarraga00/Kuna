@@ -112,6 +112,43 @@ class MotorCalculoTests(TestCase):
 
         )
         self.assertIsNone(self.plan.kcal_carbos)
+    def test_imc_cero(self):
+        self.paciente=Paciente.objects.create(
+            nombre="Maria",
+            apellido="Lopez",
+            email='[EMAIL_ADDRESS]',
+            telefono="0989565654",
+            fecha_nacimiento=date(1999,5,2),
+            restricciones_alimentarias="Pescado",
+            alergias_alimentarias="Pescado Mariscos Gluten",
+            enfermedades_existentes="diabetes tipo 2",
+            medicamentos_actuales="Insulina",
+            sexo=Paciente.Sexo.FEMENINO,
+            observaciones="Tiene manchas detras del cuello"
+        )
+        self.medicion=Medicion.objects.create(
+            paciente=self.paciente,
+            peso=80,
+            talla=0,
+            pliegue_1=10,
+            pliegue_2=10,
+            pliegue_3=10,
+            actividad_fisica=Medicion.NivelActividad.SEDENTARIO,
+        )
+        self.plan = Plan.objects.create(
+            medicion=self.medicion,
+            objetivo_plan=Plan.Objetivo.PERDIDA_PESO,
+            calorias_objetivo=2500,
+            proteinas_objetivo=200,
+            carbohidratos_objetivo=300,
+            grasas_objetivo=70,
+            cantidad_agua=2500,
+            observaciones="1era revision nutricional",
+            activo=True,
+        )
+        self.assertIsNone(self.medicion.imc)
+    
+    
         
     
         
