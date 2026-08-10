@@ -5,6 +5,12 @@ from rest_framework.response import Response
 from .models import Ingrediente, Plato, Componente, TiempoComida, Plan
 from .serializers import IngredienteSerializer, PlatoSerializer, ComponenteSerializer, TiempoComidaSerializer
 from rest_framework import viewsets
+from reportlab.lib.pagesizes import letter
+from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
+from reportlab.lib.styles import getSampleStyleSheet
+from django.http import HttpResponse
+
+
 
 # Create your views here.
 @api_view(['GET'])
@@ -56,3 +62,28 @@ class ComponenteViewSet(viewsets.ModelViewSet):
 class TiempoComidaViewSet(viewsets.ModelViewSet):
     queryset = TiempoComida.objects.all()
     serializer_class = TiempoComidaSerializer
+
+@api_view(['GET'])
+def exportar_pdf(request, plan_id):
+    plan = get_object_or_404(Plan,id=plan_id)
+    response = HttpResponse(content_type="application/pdf")
+    response["Content-Disposition"] = f"attachment; filename=plan_{plan_id}.pdf"
+
+    doc = SimpleDocTemplate(response, pagesize=letter)
+    styles = getSampleStyleSheet() 
+    story = []
+
+    story.append(Paragraph(f"Plan Nutricional - {plan.medicion.paciente}", styles['Title']))
+    story.append(Paragraph(f"Objetivo: {plan.get_objetivo_plan_display()}", styles['Normal']))
+    story.append(Spacer(1, 12))
+    
+    for comida in plan.comidas.all():
+        story.append(Paragraph(comida.get_tipo_display(), styles['Heading2']))
+        for plato in comida.platos.all():
+            story.append(Paragraph(str(plato),styles['Normal']))
+            for componente in plato.componentes.all():
+                story.append(Paragraph(f"  {componente.ingrediente} - {componente.gramaje}g", styles['Normal']))
+    doc.build(story)
+    return response
+
+    
