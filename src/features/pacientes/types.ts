@@ -17,3 +17,5 @@ export interface Paciente {
   sexo: "M" | "F" | "N";
   fecha_nacimiento: string;
 }
+
+export type NuevoPaciente = Omit<Paciente, "id" | "created_at" | "updated_at">;

@@ -1,4 +1,5 @@
-import type { Paciente } from "./types";
+import type { NuevoPaciente, Paciente } from "./types";
+
 /**
  * Hacemos la petición(fetch) al endpoint del backend para obtener los pacientes
  * 1. La petición se hace de forma asíncrona
@@ -14,6 +15,26 @@ export const obtenerPacientes = async (): Promise<Paciente[]> => {
     return data;
   } catch (error) {
     console.error("Hubo un problema al traer a los pacientes", error);
+    throw error;
+  }
+};
+
+export const crearPaciente = async (
+  paciente: NuevoPaciente,
+): Promise<Paciente> => {
+  try {
+    const respuesta = await fetch("http://127.0.0.1:8000/api/pacientes/", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(paciente),
+    });
+    if (!respuesta.ok) {
+      throw new Error(`Error en la petición: ${respuesta.statusText}`);
+    }
+    const data = await respuesta.json();
+    return data;
+  } catch (error) {
+    console.error("Hubo un problema al crear el paciente", error);
     throw error;
   }
 };
