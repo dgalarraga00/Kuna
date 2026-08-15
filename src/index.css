@@ -1,111 +1,229 @@
+/* ============================================================
+   Kuna — sistema de diseño
+   Herbario nocturno: verde-negro profundo, lima viva,
+   serif orgánica para títulos, mono para los números.
+   ============================================================ */
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
+  /* Superficies */
+  --bg: #0a100e;
+  --bg-glow-a: rgba(200, 245, 92, 0.07);
+  --bg-glow-b: rgba(94, 224, 176, 0.05);
+  --surface: #111c19;
+  --surface-2: #16241f;
+  --surface-3: #1c2e28;
+  --border: #22332d;
+  --border-strong: #31473f;
 
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
+  /* Tinta */
+  --ink: #eaf3ed;
+  --ink-2: #9db3aa;
+  --ink-3: #66807a;
 
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
-  color: var(--text);
-  background: var(--bg);
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  /* Acentos */
+  --lime: #c8f55c;
+  --lime-deep: #9fd132;
+  --mint: #5ee0b0;
+  --amber: #f5b759;
+  --coral: #ff7a6b;
 
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
+  /* Halos */
+  --lime-soft: rgba(200, 245, 92, 0.12);
+  --coral-soft: rgba(255, 122, 107, 0.12);
+  --amber-soft: rgba(245, 183, 89, 0.12);
+
+  /* Tipografía */
+  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --sans: "Archivo", "Helvetica Neue", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Forma */
+  --r-sm: 8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+
+  color-scheme: dark;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
-}
-
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
+*,
+*::before,
+*::after {
   box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
   margin: 0;
+  min-height: 100svh;
+  font-family: var(--sans);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink-2);
+  background-color: var(--bg);
+  /* Atmósfera: dos halos suaves + grano fino */
+  background-image:
+    radial-gradient(60rem 40rem at 12% -10%, var(--bg-glow-a), transparent 60%),
+    radial-gradient(50rem 35rem at 90% 0%, var(--bg-glow-b), transparent 55%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
+/* Grano: textura sutil que le saca el plano al fondo */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+#root {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---------- Tipografía ---------- */
+
 h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--display);
+  font-weight: 600;
+  font-variation-settings: "SOFT" 100, "WONK" 1;
+  line-height: 1.1;
+  letter-spacing: -0.015em;
 }
 
 h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
 }
 h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
+  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.6rem);
 }
+h3 {
+  font-size: 1.3rem;
+}
+h4 {
+  font-size: 1rem;
+  font-family: var(--sans);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+
 p {
   margin: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  color: var(--lime);
+  text-decoration: none;
+  transition: color 0.18s ease;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+a:hover {
+  color: var(--ink);
+}
+
+/* ---------- Formularios ---------- */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+input[type="number"],
+input[type="date"] {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: none;
+  border-color: var(--lime-deep);
+  box-shadow: 0 0 0 3px var(--lime-soft);
+}
+
+select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2.2rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%),
+    linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.1rem) 55%,
+    calc(100% - 0.75rem) 55%;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+
+option {
+  background: var(--surface-2);
+  color: var(--ink);
+}
+
+::placeholder {
+  color: var(--ink-3);
+}
+
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+/* ---------- Movimiento ---------- */
+
+@keyframes kuna-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
