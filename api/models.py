@@ -269,6 +269,21 @@ class TiempoComida(models.Model):
     tipo = models.CharField(max_length=3, choices=Tipo.choices)
     platos =  models.ManyToManyField(Plato, related_name="tiempos_comida")
 
+    class Meta: 
+        ordering = [
+            models.Case(
+                models.When(tipo = "DES", then=models.Value(1)),
+                models.When(tipo = "MM", then=models.Value(2)),
+                models.When(tipo = "ALM", then=models.Value(3)),
+                models.When(tipo = "MT", then=models.Value(4)),
+                models.When(tipo = "CEN", then=models.Value(5)),
+                output_field=models.IntegerField(), 
+            )
+        ]
+    def __str__(self):
+        # Muestra "Desayuno", "Almuerzo", etc., en lugar de "DES", "ALM"
+        return f"{self.get_tipo_display()} ({self.plan})"
+
 
 
     def calcular_macros(self, nombre_macro):

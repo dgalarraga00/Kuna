@@ -43,7 +43,7 @@ def comparar_plan(request, plan_id):
         },
         "faltantes": {
             "kcal":round(plan.calorias_meta - reales_calorias,2) if plan.calorias_meta is not None else None,
-            "proteina": plan.g_proteina - reales_proteinas,
+            "proteina": round(plan.g_proteina - reales_proteinas,2),
             "carbohidratos":round(plan.gramos_carbos - reales_carbohidratos,2) if plan.gramos_carbos is not None else None,
             "grasas": plan.g_grasa - reales_grasas
         },

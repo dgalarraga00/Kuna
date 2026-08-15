@@ -27,6 +27,10 @@ class PacienteSerializer(serializers.ModelSerializer):
         fields = '__all__' 
     
 class MedicionSerializer(serializers.ModelSerializer):
+    imc = serializers.ReadOnlyField()
+    porcentaje_grasa = serializers.ReadOnlyField()
+    geb = serializers.ReadOnlyField()
+    gasto_total = serializers.ReadOnlyField()
     class Meta:
         model = Medicion
         fields = '__all__' 
