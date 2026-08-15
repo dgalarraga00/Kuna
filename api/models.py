@@ -167,7 +167,7 @@ class Plan(models.Model):
         PERDIDA_PESO = "0.8", "Perdida de peso"
         MANTENIMIENTO = "1.0", "Mantenimiento"
         GANANCIA_MUSCULAR = "1.2", "Ganancia muscular"
-    medicion = models.ForeignKey(Medicion, on_delete=models.PROTECT, related_name="planes")
+    medicion = models.ForeignKey(Medicion, on_delete=models.CASCADE, related_name="planes")
     objetivo_plan = models.CharField(max_length=3, choices=Objetivo.choices)
     calorias_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Calorias del plan", blank=True, null=True)
     proteinas_objetivo = models.DecimalField(max_digits=6, decimal_places=2, verbose_name = "Proteinas del plan", blank=True, default=0)
