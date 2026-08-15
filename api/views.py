@@ -9,16 +9,11 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table
 from reportlab.lib.styles import getSampleStyleSheet
 from django.http import HttpResponse
+from .filters import IngredienteFilter
 
 
 
 # Create your views here.
-@api_view(['GET'])
-def buscar_ingredientes(request): 
-    query = request.GET.get('nombre','')
-    ingredientes = Ingrediente.objects.filter(nombre__icontains=query)
-    serializer = IngredienteSerializer(ingredientes, many=True)
-    return Response(serializer.data)
 
 @api_view(['GET'])
 def comparar_plan(request, plan_id):
@@ -52,16 +47,19 @@ def comparar_plan(request, plan_id):
  
 
 class PlatoViewSet(viewsets.ModelViewSet):
-    queryset = Plato.objects.all()
+    queryset = Plato.objects.prefetch_related("componentes__ingrediente")
     serializer_class = PlatoSerializer
+
 
 class ComponenteViewSet(viewsets.ModelViewSet):
     queryset = Componente.objects.all()
     serializer_class = ComponenteSerializer
+    filterset_fields = ['plato']
     
 class TiempoComidaViewSet(viewsets.ModelViewSet):
     queryset = TiempoComida.objects.all()
     serializer_class = TiempoComidaSerializer
+    filterset_fields = ['plan']
 
 @api_view(['GET'])
 def exportar_pdf(request, plan_id):
@@ -93,9 +91,17 @@ class PacienteViewSet(viewsets.ModelViewSet):
 class MedicionViewSet(viewsets.ModelViewSet):
     queryset = Medicion.objects.all()
     serializer_class = MedicionSerializer
+    filterset_fields = ['paciente']
 
 class PlanViewSet(viewsets.ModelViewSet):
     queryset = Plan.objects.all()
     serializer_class = PlanSerializer
+    filterset_fields = ['medicion','activo','medicion__paciente']
+
+class IngredienteViewSet(viewsets.ModelViewSet):
+    queryset = Ingrediente.objects.all()
+    serializer_class = IngredienteSerializer
+    filterset_class = IngredienteFilter
+
     
     

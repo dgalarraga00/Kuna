@@ -9,10 +9,11 @@ router.register(r'tiempos_comida', views.TiempoComidaViewSet)
 router.register(r'pacientes', views.PacienteViewSet)
 router.register(r'mediciones', views.MedicionViewSet)
 router.register(r'planes', views.PlanViewSet)
+router.register(r'ingredientes', views.IngredienteViewSet)
 
 
 urlpatterns = [
-    path('ingredientes/', views.buscar_ingredientes, name='buscar-ingredientes'),
+    
     path('planes/<int:plan_id>/comparar/', views.comparar_plan, name='comparar-plan'),
     path('planes/<int:plan_id>/pdf/', views.exportar_pdf, name='exportar-pdf'),
 ] + router.urls
