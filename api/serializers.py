@@ -7,9 +7,17 @@ class IngredienteSerializer(serializers.ModelSerializer):
         fields = '__all__' 
     
 class PlatoSerializer(serializers.ModelSerializer):
+    macros = serializers.SerializerMethodField()
     class Meta :
         model = Plato
         fields = '__all__' 
+    def get_macros(self, obj):
+        return {
+            "calorias": obj.calcular_macros("calorias"),
+            "proteina": obj.calcular_macros("proteina"),
+            "carbohidratos": obj.calcular_macros("carbohidratos"),
+            "grasa_total" : obj.calcular_macros("grasa_total"),
+        }
     
 class ComponenteSerializer(serializers.ModelSerializer):
     class Meta :
@@ -22,6 +30,7 @@ class TiempoComidaSerializer(serializers.ModelSerializer):
          fields = '__all__'
          
 class PacienteSerializer(serializers.ModelSerializer):
+    edad = serializers.ReadOnlyField()
     class Meta:
         model = Paciente
         fields = '__all__' 
@@ -36,6 +45,14 @@ class MedicionSerializer(serializers.ModelSerializer):
         fields = '__all__' 
     
 class PlanSerializer(serializers.ModelSerializer):
+    calorias_meta = serializers.ReadOnlyField()
+    g_proteina = serializers.ReadOnlyField()
+    g_grasa = serializers.ReadOnlyField()
+    kcal_proteina = serializers.ReadOnlyField()
+    kcal_grasa = serializers.ReadOnlyField()
+    kcal_carbos = serializers.ReadOnlyField()
+    gramos_carbos = serializers.ReadOnlyField()
+
     class Meta:
         model = Plan
         fields = '__all__' 
