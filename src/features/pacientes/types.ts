@@ -16,6 +16,18 @@ export interface Paciente {
   observaciones: string;
   sexo: "M" | "F" | "N";
   fecha_nacimiento: string;
+  /**
+   * `edad` es una @property del modelo, no un campo.
+   * Solo llega si el PacienteSerializer la declara como ReadOnlyField;
+   * por eso es opcional y la UI muestra "—" cuando no viene.
+   */
+  edad?: number | null;
 }
 
-export type NuevoPaciente = Omit<Paciente, "id" | "created_at" | "updated_at">;
+export type NuevoPaciente = Omit<Paciente, "id" | "created_at" | "updated_at" | "edad">;
+
+export const ETIQUETAS_SEXO: Record<Paciente["sexo"], string> = {
+  M: "Masculino",
+  F: "Femenino",
+  N: "No Aplica",
+};
