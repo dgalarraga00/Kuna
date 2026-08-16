@@ -220,7 +220,12 @@ export default function DetallePlan() {
                 objetivo && objetivo > 0
                   ? Math.round((real / objetivo) * 100)
                   : null;
-              const excedido = porcentaje !== null && porcentaje > 100;
+              /**
+               * El estado sale del mismo faltante que se muestra abajo, no del
+               * porcentaje redondeado: con 102.45 sobre 102 el redondeo da 100
+               * y la barra quedaba verde mientras el texto decia "Excedido".
+               */
+              const excedido = faltante !== null && faltante !== undefined && faltante < 0;
 
               return (
                 <div className="meter" key={macro.clave}>

@@ -13,7 +13,7 @@
   justify-content: space-between;
   gap: 1.5rem;
   padding: 0.9rem clamp(1rem, 4vw, 3rem);
-  background: rgba(10, 16, 14, 0.72);
+  background: rgba(250, 249, 245, 0.82);
   backdrop-filter: blur(14px);
   border-bottom: 1px solid var(--border);
 }
@@ -23,7 +23,6 @@
   align-items: baseline;
   gap: 0.6rem;
   font-family: var(--display);
-  font-variation-settings: "SOFT" 100, "WONK" 1;
   font-size: 1.5rem;
   font-weight: 600;
   color: var(--ink);
@@ -35,8 +34,8 @@
   width: 10px;
   height: 10px;
   border-radius: 3px 10px 3px 10px;
-  background: var(--lime);
-  box-shadow: 0 0 14px var(--lime-soft);
+  background: var(--green);
+  box-shadow: 0 4px 12px -4px var(--green-soft);
   transform: translateY(-2px);
 }
 
@@ -70,9 +69,9 @@
 }
 
 .nav a.is-active {
-  color: var(--lime);
-  background: var(--lime-soft);
-  border-color: rgba(200, 245, 92, 0.25);
+  color: var(--green-deep);
+  background: var(--green-soft);
+  border-color: rgba(18, 161, 80, 0.28);
 }
 
 .page {
@@ -103,7 +102,7 @@
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--lime-deep);
+  color: var(--green-deep);
 }
 
 .section-head {
@@ -124,7 +123,7 @@
 }
 
 .back-link:hover {
-  color: var(--lime);
+  color: var(--green-deep);
 }
 
 /* ---------- Superficies ---------- */
@@ -157,7 +156,7 @@
   font-size: 0.9rem;
   color: var(--coral);
   background: var(--coral-soft);
-  border: 1px solid rgba(255, 122, 107, 0.28);
+  border: 1px solid rgba(196, 64, 43, 0.25);
   border-radius: var(--r-md);
 }
 
@@ -179,9 +178,9 @@
   gap: 0.45rem;
   padding: 0.6rem 1.1rem;
   font-size: 0.88rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--ink);
-  background: var(--surface-3);
+  background: var(--surface);
   border: 1px solid var(--border-strong);
   border-radius: 999px;
   transition: all 0.18s ease;
@@ -194,15 +193,15 @@
 }
 
 .btn--primary {
-  color: #0a100e;
-  background: var(--lime);
-  border-color: var(--lime);
+  color: #ffffff;
+  background: var(--green-deep);
+  border-color: var(--green-deep);
 }
 
 .btn--primary:hover {
-  background: #d6ff72;
-  border-color: #d6ff72;
-  box-shadow: 0 8px 24px -10px var(--lime);
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: 0 10px 20px -10px rgba(18, 161, 80, 0.7);
 }
 
 .btn--ghost {
@@ -219,7 +218,7 @@
 .btn--danger {
   color: var(--coral);
   background: transparent;
-  border-color: rgba(255, 122, 107, 0.3);
+  border-color: rgba(196, 64, 43, 0.3);
 }
 
 .btn--danger:hover {
@@ -278,7 +277,7 @@
 .protocol {
   margin-top: 1.6rem;
   padding: 1.1rem 1.2rem 1.2rem;
-  background: var(--bg);
+  background: var(--surface-2);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
 }
@@ -314,6 +313,7 @@
   background: var(--border);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
+  box-shadow: var(--shadow);
   overflow: hidden;
 }
 
@@ -350,6 +350,7 @@
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
+  box-shadow: var(--shadow);
   overflow: hidden;
   animation: kuna-rise 0.5s ease both;
 }
@@ -359,7 +360,7 @@
   position: absolute;
   inset: 0 auto 0 0;
   width: 3px;
-  background: var(--lime);
+  background: var(--green);
   opacity: 0.75;
 }
 
@@ -439,8 +440,11 @@
 }
 
 .meter__track {
-  height: 10px;
+  height: 12px;
   background: var(--surface-3);
+  /* El borde define el limite del componente; el relleno solo indica
+     cuanto se llego. El estado va escrito abajo, nunca solo por color. */
+  border: 1px solid var(--border-strong);
   border-radius: 999px;
   overflow: hidden;
 }
@@ -448,13 +452,13 @@
 .meter__fill {
   height: 100%;
   border-radius: 999px;
-  background: var(--lime);
+  background: var(--fill-ok);
   transition: width 0.5s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 /* Estado: se pasó del objetivo */
 .meter__fill.is-over {
-  background: var(--amber);
+  background: var(--fill-over);
 }
 
 .meter__note {
@@ -470,6 +474,7 @@
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   background: var(--surface);
+  box-shadow: var(--shadow);
 }
 
 table {
@@ -535,7 +540,7 @@ tfoot td {
   border-top: 1px solid var(--border-strong);
   font-family: var(--mono);
   font-weight: 600;
-  color: var(--lime);
+  color: var(--green-deep);
 }
 
 tfoot th {
@@ -565,6 +570,7 @@ tfoot th {
   background: var(--surface);
   border: 1px solid var(--border);
   border-radius: var(--r-md);
+  box-shadow: var(--shadow);
   transition: all 0.2s ease;
   animation: kuna-rise 0.45s ease both;
 }
@@ -572,12 +578,11 @@ tfoot th {
 .tile:hover {
   border-color: var(--border-strong);
   transform: translateY(-2px);
-  box-shadow: var(--shadow);
+  box-shadow: var(--shadow-lift);
 }
 
 .tile__name {
   font-family: var(--display);
-  font-variation-settings: "SOFT" 100, "WONK" 1;
   font-size: 1.2rem;
   font-weight: 600;
   color: var(--ink);
@@ -585,7 +590,7 @@ tfoot th {
 }
 
 .tile__name:hover {
-  color: var(--lime);
+  color: var(--green-deep);
 }
 
 .tile__meta {
@@ -615,11 +620,12 @@ tfoot th {
   border: 1px solid var(--border);
   border-radius: var(--r-md);
   border-left: 3px solid var(--border-strong);
+  box-shadow: var(--shadow);
   transition: border-color 0.2s ease;
 }
 
 .meal:hover {
-  border-left-color: var(--lime);
+  border-left-color: var(--green);
 }
 
 .meal__head {
@@ -633,7 +639,6 @@ tfoot th {
 
 .meal__name {
   font-family: var(--display);
-  font-variation-settings: "SOFT" 100, "WONK" 1;
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--ink);
@@ -661,7 +666,7 @@ tfoot th {
   gap: 0.55rem;
   padding: 0.35rem 0.4rem 0.35rem 0.85rem;
   font-size: 0.85rem;
-  background: var(--surface-3);
+  background: var(--surface-2);
   border: 1px solid var(--border-strong);
   border-radius: 999px;
 }
@@ -671,7 +676,7 @@ tfoot th {
 }
 
 .plate a:hover {
-  color: var(--lime);
+  color: var(--green-deep);
 }
 
 .plate__remove {
@@ -746,14 +751,13 @@ tfoot th {
   flex-wrap: wrap;
   margin-top: 1rem;
   padding: 1rem 1.15rem;
-  background: var(--lime-soft);
-  border: 1px solid rgba(200, 245, 92, 0.25);
+  background: var(--green-soft);
+  border: 1px solid rgba(18, 161, 80, 0.28);
   border-radius: var(--r-md);
 }
 
 .picked__name {
   font-family: var(--display);
-  font-variation-settings: "SOFT" 100, "WONK" 1;
   font-size: 1.05rem;
   color: var(--ink);
 }
@@ -778,7 +782,7 @@ tfoot th {
 .chip--off {
   color: var(--amber);
   background: var(--amber-soft);
-  border-color: rgba(245, 183, 89, 0.3);
+  border-color: rgba(154, 100, 0, 0.28);
 }
 
 .muted {

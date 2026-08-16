@@ -1,49 +1,59 @@
 /* ============================================================
    Kuna — sistema de diseño
-   Herbario nocturno: verde-negro profundo, lima viva,
-   serif orgánica para títulos, mono para los números.
+   Claro y vivo: papel cálido, verde fresco, coral y ámbar.
+   Poppins en toda la interfaz, mono para los números.
+
+   Los colores de texto están medidos contra el fondo, no elegidos
+   a ojo: todos los pares llegan a 4.5:1 (WCAG AA para texto normal).
    ============================================================ */
 
 :root {
   /* Superficies */
-  --bg: #0a100e;
-  --bg-glow-a: rgba(200, 245, 92, 0.07);
-  --bg-glow-b: rgba(94, 224, 176, 0.05);
-  --surface: #111c19;
-  --surface-2: #16241f;
-  --surface-3: #1c2e28;
-  --border: #22332d;
-  --border-strong: #31473f;
+  --bg: #faf9f5;
+  --surface: #ffffff;
+  --surface-2: #f3f2ec;
+  --surface-3: #eceadf;
+  --border: #e4e2d6;
+  --border-strong: #cfccbb;
 
-  /* Tinta */
-  --ink: #eaf3ed;
-  --ink-2: #9db3aa;
-  --ink-3: #66807a;
+  /* Tinta — contraste verificado sobre --bg */
+  --ink: #15241c; /* 15.32:1 */
+  --ink-2: #55665c; /*  5.79:1 */
+  --ink-3: #647368; /*  4.75:1 */
 
-  /* Acentos */
-  --lime: #c8f55c;
-  --lime-deep: #9fd132;
-  --mint: #5ee0b0;
-  --amber: #f5b759;
-  --coral: #ff7a6b;
+  /* Acentos vivos — decorativos, sin requisito de contraste */
+  --green: #12a150;
+  --green-deep: #0b7a3d; /* texto y botones: 5.16:1 sobre bg */
+  --coral: #c4402b; /*  4.84:1 sobre bg */
+  --amber: #9a6400; /*  4.75:1 sobre bg */
+  --violet: #6d4bd6;
+
+  /* Rellenos de gráficos — miden 3:1 contra la pista del medidor,
+     que es el mínimo de WCAG para elementos no textuales. Los tonos
+     brillantes no llegan a ese umbral sobre un fondo casi blanco. */
+  --fill-ok: #0f8f47; /* 3.45:1 */
+  --fill-over: #b86f05; /* 3.27:1 */
 
   /* Halos */
-  --lime-soft: rgba(200, 245, 92, 0.12);
-  --coral-soft: rgba(255, 122, 107, 0.12);
-  --amber-soft: rgba(245, 183, 89, 0.12);
+  --green-soft: rgba(18, 161, 80, 0.12);
+  --coral-soft: rgba(196, 64, 43, 0.1);
+  --amber-soft: rgba(154, 100, 0, 0.12);
 
   /* Tipografía */
-  --display: "Fraunces", "Iowan Old Style", Georgia, serif;
-  --sans: "Archivo", "Helvetica Neue", sans-serif;
+  --sans: "Poppins", "Helvetica Neue", sans-serif;
+  --display: "Poppins", "Helvetica Neue", sans-serif;
   --mono: "IBM Plex Mono", ui-monospace, monospace;
 
   /* Forma */
-  --r-sm: 8px;
-  --r-md: 14px;
-  --r-lg: 22px;
-  --shadow: 0 18px 40px -24px rgba(0, 0, 0, 0.9);
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --shadow: 0 2px 4px -2px rgba(21, 36, 28, 0.06),
+    0 12px 28px -18px rgba(21, 36, 28, 0.35);
+  --shadow-lift: 0 4px 8px -4px rgba(21, 36, 28, 0.08),
+    0 18px 36px -20px rgba(21, 36, 28, 0.45);
 
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 *,
@@ -61,33 +71,22 @@ body {
   min-height: 100svh;
   font-family: var(--sans);
   font-size: 15px;
-  line-height: 1.55;
+  font-weight: 400;
+  line-height: 1.6;
   color: var(--ink-2);
   background-color: var(--bg);
-  /* Atmósfera: dos halos suaves + grano fino */
+  /* Dos halos de color muy suaves: le sacan lo plano al papel */
   background-image:
-    radial-gradient(60rem 40rem at 12% -10%, var(--bg-glow-a), transparent 60%),
-    radial-gradient(50rem 35rem at 90% 0%, var(--bg-glow-b), transparent 55%);
+    radial-gradient(48rem 30rem at 8% -8%, rgba(18, 161, 80, 0.09), transparent 62%),
+    radial-gradient(40rem 26rem at 96% 2%, rgba(245, 166, 35, 0.1), transparent 58%);
   background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
 }
 
-/* Grano: textura sutil que le saca el plano al fondo */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 #root {
   position: relative;
-  z-index: 1;
 }
 
 /* ---------- Tipografía ---------- */
@@ -99,28 +98,32 @@ h4 {
   margin: 0;
   color: var(--ink);
   font-family: var(--display);
-  font-weight: 600;
-  font-variation-settings: "SOFT" 100, "WONK" 1;
-  line-height: 1.1;
-  letter-spacing: -0.015em;
+  line-height: 1.15;
 }
 
 h1 {
-  font-size: clamp(1.5rem, 1.2rem + 1vw, 2rem);
+  font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 h2 {
-  font-size: clamp(1.75rem, 1.3rem + 2vw, 2.6rem);
+  /* Poppins es geométrica: en tamaños grandes pide letter-spacing negativo
+     para que las contraformas circulares no se abran de más. */
+  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
 }
 h3 {
-  font-size: 1.3rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
 }
 h4 {
-  font-size: 1rem;
-  font-family: var(--sans);
+  font-size: 0.8rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
-  color: var(--ink-2);
+  color: var(--ink-3);
 }
 
 p {
@@ -128,8 +131,9 @@ p {
 }
 
 a {
-  color: var(--lime);
+  color: var(--green-deep);
   text-decoration: none;
+  font-weight: 500;
   transition: color 0.18s ease;
 }
 
@@ -147,8 +151,8 @@ textarea {
   font-family: var(--sans);
   font-size: 0.95rem;
   color: var(--ink);
-  background: var(--bg);
-  border: 1px solid var(--border);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
   border-radius: var(--r-sm);
   transition:
     border-color 0.18s ease,
@@ -172,16 +176,16 @@ textarea:focus-visible,
 button:focus-visible,
 a:focus-visible {
   outline: none;
-  border-color: var(--lime-deep);
-  box-shadow: 0 0 0 3px var(--lime-soft);
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
 }
 
 select {
   appearance: none;
   cursor: pointer;
   padding-right: 2.2rem;
-  background-image: linear-gradient(45deg, transparent 50%, var(--ink-2) 50%),
-    linear-gradient(135deg, var(--ink-2) 50%, transparent 50%);
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%),
+    linear-gradient(135deg, var(--ink-3) 50%, transparent 50%);
   background-position:
     calc(100% - 1.1rem) 55%,
     calc(100% - 0.75rem) 55%;
@@ -191,13 +195,9 @@ select {
   background-repeat: no-repeat;
 }
 
-option {
-  background: var(--surface-2);
-  color: var(--ink);
-}
-
 ::placeholder {
   color: var(--ink-3);
+  opacity: 0.75;
 }
 
 button {
