@@ -1,0 +1,229 @@
+/* ============================================================
+   Kuna — sistema de diseño
+   Claro y vivo: papel cálido, verde fresco, coral y ámbar.
+   Poppins en toda la interfaz, mono para los números.
+
+   Los colores de texto están medidos contra el fondo, no elegidos
+   a ojo: todos los pares llegan a 4.5:1 (WCAG AA para texto normal).
+   ============================================================ */
+
+:root {
+  /* Superficies */
+  --bg: #faf9f5;
+  --surface: #ffffff;
+  --surface-2: #f3f2ec;
+  --surface-3: #eceadf;
+  --border: #e4e2d6;
+  --border-strong: #cfccbb;
+
+  /* Tinta — contraste verificado sobre --bg */
+  --ink: #15241c; /* 15.32:1 */
+  --ink-2: #55665c; /*  5.79:1 */
+  --ink-3: #647368; /*  4.75:1 */
+
+  /* Acentos vivos — decorativos, sin requisito de contraste */
+  --green: #12a150;
+  --green-deep: #0b7a3d; /* texto y botones: 5.16:1 sobre bg */
+  --coral: #c4402b; /*  4.84:1 sobre bg */
+  --amber: #9a6400; /*  4.75:1 sobre bg */
+  --violet: #6d4bd6;
+
+  /* Rellenos de gráficos — miden 3:1 contra la pista del medidor,
+     que es el mínimo de WCAG para elementos no textuales. Los tonos
+     brillantes no llegan a ese umbral sobre un fondo casi blanco. */
+  --fill-ok: #0f8f47; /* 3.45:1 */
+  --fill-over: #b86f05; /* 3.27:1 */
+
+  /* Halos */
+  --green-soft: rgba(18, 161, 80, 0.12);
+  --coral-soft: rgba(196, 64, 43, 0.1);
+  --amber-soft: rgba(154, 100, 0, 0.12);
+
+  /* Tipografía */
+  --sans: "Poppins", "Helvetica Neue", sans-serif;
+  --display: "Poppins", "Helvetica Neue", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, monospace;
+
+  /* Forma */
+  --r-sm: 10px;
+  --r-md: 16px;
+  --r-lg: 24px;
+  --shadow: 0 2px 4px -2px rgba(21, 36, 28, 0.06),
+    0 12px 28px -18px rgba(21, 36, 28, 0.35);
+  --shadow-lift: 0 4px 8px -4px rgba(21, 36, 28, 0.08),
+    0 18px 36px -20px rgba(21, 36, 28, 0.45);
+
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100svh;
+  font-family: var(--sans);
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 1.6;
+  color: var(--ink-2);
+  background-color: var(--bg);
+  /* Dos halos de color muy suaves: le sacan lo plano al papel */
+  background-image:
+    radial-gradient(48rem 30rem at 8% -8%, rgba(18, 161, 80, 0.09), transparent 62%),
+    radial-gradient(40rem 26rem at 96% 2%, rgba(245, 166, 35, 0.1), transparent 58%);
+  background-attachment: fixed;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+#root {
+  position: relative;
+}
+
+/* ---------- Tipografía ---------- */
+
+h1,
+h2,
+h3,
+h4 {
+  margin: 0;
+  color: var(--ink);
+  font-family: var(--display);
+  line-height: 1.15;
+}
+
+h1 {
+  font-size: clamp(1.4rem, 1.2rem + 0.9vw, 1.8rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+h2 {
+  /* Poppins es geométrica: en tamaños grandes pide letter-spacing negativo
+     para que las contraformas circulares no se abran de más. */
+  font-size: clamp(1.7rem, 1.2rem + 2.2vw, 2.5rem);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+h4 {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: var(--green-deep);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.18s ease;
+}
+
+a:hover {
+  color: var(--ink);
+}
+
+/* ---------- Formularios ---------- */
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  font-family: var(--sans);
+  font-size: 0.95rem;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--border-strong);
+  border-radius: var(--r-sm);
+  transition:
+    border-color 0.18s ease,
+    box-shadow 0.18s ease;
+}
+
+input[type="number"],
+input[type="date"] {
+  font-family: var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+
+textarea {
+  min-height: 5.5rem;
+  resize: vertical;
+}
+
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+button:focus-visible,
+a:focus-visible {
+  outline: none;
+  border-color: var(--green);
+  box-shadow: 0 0 0 3px var(--green-soft);
+}
+
+select {
+  appearance: none;
+  cursor: pointer;
+  padding-right: 2.2rem;
+  background-image: linear-gradient(45deg, transparent 50%, var(--ink-3) 50%),
+    linear-gradient(135deg, var(--ink-3) 50%, transparent 50%);
+  background-position:
+    calc(100% - 1.1rem) 55%,
+    calc(100% - 0.75rem) 55%;
+  background-size:
+    5px 5px,
+    5px 5px;
+  background-repeat: no-repeat;
+}
+
+::placeholder {
+  color: var(--ink-3);
+  opacity: 0.75;
+}
+
+button {
+  font-family: var(--sans);
+  cursor: pointer;
+}
+
+/* ---------- Movimiento ---------- */
+
+@keyframes kuna-rise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
