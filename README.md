@@ -8,24 +8,37 @@ El sistema calcula automáticamente IMC, porcentaje de grasa corporal, gasto ene
 y total, y a partir de ahí deriva los objetivos de calorías y macronutrientes del plan. Los
 planes se arman con platos compuestos por ingredientes, y pueden exportarse a PDF.
 
+| Entorno | URL |
+| ------- | --- |
+| Aplicación | <https://kuna-seven.vercel.app> |
+| API | <https://kuna-api.onrender.com/api/> |
+| Administración | <https://kuna-api.onrender.com/admin/> |
+
 ## Stack
 
-| Capa     | Tecnología                                              |
-| -------- | ------------------------------------------------------- |
-| Backend  | Django 6.1 · Django REST Framework · django-filter       |
-| Frontend | React 19 · TypeScript · Vite · React Router              |
-| Base     | SQLite                                                  |
-| PDF      | ReportLab                                               |
+| Capa     | Tecnología                                                        |
+| -------- | ----------------------------------------------------------------- |
+| Backend  | Django 6.1 · Django REST Framework · django-filter                 |
+| Frontend | React 19 · TypeScript · Vite · React Router                        |
+| Base     | PostgreSQL en producción · SQLite en desarrollo                    |
+| PDF      | ReportLab                                                          |
+| Servidor | Gunicorn · WhiteNoise para archivos estáticos                      |
+
+La base se elige por configuración, no por código: si `DATABASE_URL` está definida se usa
+PostgreSQL, y si no, el SQLite local. El mismo código sirve para los dos entornos.
 
 ## Estructura
 
 ```
 Kuna/
+├── render.yaml       Servicio del backend en Render
 ├── backend/          API REST en Django
 │   ├── api/          App principal: modelos, serializers, vistas, filtros
+│   │   └── fixtures/ Catálogo de ingredientes y platos
 │   ├── kuna/         Configuración del proyecto
 │   └── requirements.txt
 └── frontend/         SPA en React + TypeScript
+    ├── vercel.json   Configuración de Vercel, con el rewrite de la SPA
     └── src/
         ├── api/          Cliente HTTP centralizado
         ├── features/     Un módulo por dominio (pacientes, mediciones, planes, platos)
@@ -235,3 +248,16 @@ python manage.py createsuperuser
 Conviene abrir una terminal aparte para esto y cerrarla al terminar: mientras `DATABASE_URL`
 esté exportada, cualquier comando de `manage.py` en esa sesión apunta a producción y no al
 SQLite local.
+
+## Limitaciones conocidas
+
+- **Arranque en frío.** En los planes gratuitos, Render suspende el servicio tras unos quince
+  minutos sin tráfico y Neon escala el cómputo a cero a los cinco. Ambos se reactivan solos,
+  pero la primera petición después de una pausa puede tardar cerca de un minuto.
+- **`Paciente.telefono` admite 15 caracteres.** Un número con formato internacional como
+  `+54 9 11 1234-5678` ocupa 19 y PostgreSQL lo rechaza. SQLite no valida el largo de un
+  `VARCHAR`, así que en desarrollo el problema no se manifiesta.
+- **La API no tiene autenticación.** Todos los endpoints son públicos. Es adecuado para un
+  proyecto de aprendizaje, pero no para manejar datos clínicos reales.
+- **Los tests no se ejecutan automáticamente.** `backend/api/tests.py` existe, pero no hay
+  integración continua que lo corra en cada cambio.
