@@ -53,11 +53,15 @@ python manage.py runserver
 
 La API queda disponible en `http://127.0.0.1:8000/api/`.
 
-Para cargar el catálogo de alimentos locales incluido en el repositorio:
+Para cargar el catálogo incluido en el repositorio (158 ingredientes, 5 platos y sus
+componentes):
 
 ```bash
-python manage.py loaddata api/fixtures/db_alimentos_locales.json
+python manage.py loaddata api/fixtures/catalogo.json
 ```
+
+El fixture contiene únicamente datos de catálogo. Pacientes, mediciones y planes son datos
+personales y por eso no se versionan.
 
 Para acceder al panel de administración de Django, crear un usuario:
 
@@ -70,11 +74,14 @@ python manage.py createsuperuser
 En desarrollo el proyecto funciona sin configuración adicional. Para cualquier despliegue
 real es obligatorio definir estas variables:
 
-| Variable                | Descripción                                     | Valor por defecto |
-| ----------------------- | ----------------------------------------------- | ----------------- |
-| `DJANGO_SECRET_KEY`     | Clave secreta de Django                          | Clave insegura de desarrollo |
-| `DJANGO_DEBUG`          | Modo debug (`true` / `false`)                    | `true`            |
-| `DJANGO_ALLOWED_HOSTS`  | Hosts permitidos, separados por coma             | Vacío             |
+| Variable                       | Descripción                                              | Valor por defecto |
+| ------------------------------ | -------------------------------------------------------- | ----------------- |
+| `DJANGO_SECRET_KEY`            | Clave secreta de Django                                   | Clave insegura de desarrollo |
+| `DJANGO_DEBUG`                 | Modo debug (`true` / `false`)                             | `true`            |
+| `DJANGO_ALLOWED_HOSTS`         | Hosts permitidos, separados por coma                      | Vacío             |
+| `DATABASE_URL`                 | Cadena de conexión a Postgres                             | SQLite local      |
+| `DJANGO_CORS_ALLOWED_ORIGINS`  | Orígenes del frontend habilitados, separados por coma     | `http://localhost:5173` |
+| `DJANGO_CSRF_TRUSTED_ORIGINS`  | Orígenes confiables para CSRF, separados por coma         | Vacío             |
 
 ### Frontend
 
@@ -84,9 +91,17 @@ pnpm install
 pnpm dev
 ```
 
-La aplicación queda disponible en `http://localhost:5173`, que es el origen habilitado en la
-configuración de CORS del backend. El backend debe estar corriendo para que la interfaz
-tenga datos.
+La aplicación queda disponible en `http://localhost:5173`, que es el origen habilitado por
+defecto en la configuración de CORS del backend. El backend debe estar corriendo para que la
+interfaz tenga datos.
+
+#### Variables de entorno
+
+| Variable       | Descripción                                  | Valor por defecto              |
+| -------------- | -------------------------------------------- | ------------------------------ |
+| `VITE_API_URL` | URL base de la API, con el prefijo `/api`    | `http://127.0.0.1:8000/api`    |
+
+Vite resuelve esta variable en tiempo de build: si cambia, hay que volver a desplegar.
 
 ## API
 
@@ -148,7 +163,54 @@ Los valores derivados se exponen en la API como campos de solo lectura.
 El cálculo del porcentaje de grasa y del gasto energético requiere que el paciente tenga
 sexo definido (`M` o `F`); con sexo `N` estos valores devuelven `null`.
 
-## Pendientes
+## Despliegue
 
-- La URL del backend está fijada en `frontend/src/api/client.ts`. Para desplegar el frontend
-  hay que moverla a una variable de entorno de Vite.
+| Componente | Plataforma | Configuración |
+| ---------- | ---------- | ------------- |
+| Base de datos | Supabase | Postgres gestionado |
+| Backend | Render | Definido en `render.yaml` |
+| Frontend | Vercel | Definido en `frontend/vercel.json` |
+
+### Supabase
+
+Crear el proyecto y copiar la cadena de conexión del **Session Pooler**, no la conexión
+directa: esta última resuelve solo por IPv6 y Render no la alcanza. Esa cadena es el valor de
+`DATABASE_URL` en Render.
+
+### Render
+
+El archivo `render.yaml` en la raíz declara el servicio. Render toma `rootDir: backend`, y en
+cada despliegue instala dependencias, corre `collectstatic` y aplica las migraciones. El
+servicio arranca con Gunicorn.
+
+`DJANGO_SECRET_KEY` la genera Render. Hay que cargar a mano `DATABASE_URL`,
+`DJANGO_ALLOWED_HOSTS`, `DJANGO_CORS_ALLOWED_ORIGINS` y `DJANGO_CSRF_TRUSTED_ORIGINS`.
+
+En el plan gratuito el servicio se suspende tras un período de inactividad, así que la
+primera petición después de una pausa puede tardar cerca de un minuto.
+
+### Vercel
+
+Configurar `frontend` como directorio raíz del proyecto y definir `VITE_API_URL` apuntando a
+la API en Render, incluyendo el sufijo `/api`.
+
+El `vercel.json` reescribe todas las rutas hacia `index.html`. Sin esa regla, recargar la
+página en una ruta como `/pacientes/1` devuelve 404, porque el enrutado lo resuelve React
+Router en el cliente y no existe ese archivo en el servidor.
+
+### Orden de despliegue
+
+Las URLs se referencian entre sí, así que conviene este orden:
+
+1. Crear la base en Supabase y obtener `DATABASE_URL`.
+2. Desplegar el backend en Render con esa variable. Anotar su dominio.
+3. Desplegar el frontend en Vercel con `VITE_API_URL` apuntando al backend. Anotar su dominio.
+4. Volver a Render y completar `DJANGO_CORS_ALLOWED_ORIGINS` con el dominio de Vercel.
+
+Con el backend en marcha, cargar el catálogo y crear el usuario administrador desde la
+consola de Render:
+
+```bash
+python manage.py loaddata api/fixtures/catalogo.json
+python manage.py createsuperuser
+```
