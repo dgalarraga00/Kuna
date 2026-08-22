@@ -121,7 +121,7 @@ class Medicion(models.Model):
 
 # Modelo de cada ingrediente
 class Ingrediente(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
     calorias = models.DecimalField(max_digits=6, decimal_places=2)
     proteina = models.DecimalField(max_digits=6, decimal_places=2)
     carbohidratos = models.DecimalField(max_digits=6, decimal_places=2)
