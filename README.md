@@ -217,10 +217,21 @@ Las URLs se referencian entre sí, así que conviene este orden:
 3. Desplegar el frontend en Vercel con `VITE_API_URL` apuntando al backend. Anotar su dominio.
 4. Volver a Render y completar `DJANGO_CORS_ALLOWED_ORIGINS` con el dominio de Vercel.
 
-Con el backend en marcha, cargar el catálogo y crear el usuario administrador desde la
-consola de Render:
+### Carga inicial de datos
+
+El plan gratuito de Render no ofrece acceso por shell, pero Neon es accesible desde
+cualquier lado. La carga inicial se hace desde el entorno local apuntando a la base remota:
 
 ```bash
+cd backend
+source env/bin/activate
+export DATABASE_URL="<cadena de conexión de Neon>"
+
+python manage.py migrate
 python manage.py loaddata api/fixtures/catalogo.json
 python manage.py createsuperuser
 ```
+
+Conviene abrir una terminal aparte para esto y cerrarla al terminar: mientras `DATABASE_URL`
+esté exportada, cualquier comando de `manage.py` en esa sesión apunta a producción y no al
+SQLite local.
