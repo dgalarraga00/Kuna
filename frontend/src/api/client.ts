@@ -1,4 +1,9 @@
-const BASE_URL = "http://127.0.0.1:8000/api";
+/**
+ * En produccion la URL llega por VITE_API_URL, que Vite reemplaza en tiempo de
+ * build. Sin esa variable caemos al backend local, que es lo que corre en
+ * desarrollo.
+ */
+const BASE_URL = import.meta.env.VITE_API_URL ?? "http://127.0.0.1:8000/api";
 
 /**
  * DRF describe sus errores de tres formas distintas y todas terminan en la
