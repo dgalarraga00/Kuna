@@ -8,9 +8,9 @@ class Paciente(models.Model):
         FEMENINO = "F", "Femenino"
         NINGUNO = "N", "Ninguno"
 
-    nombre = models.CharField(max_length=50)
-    apellido = models.CharField(max_length=50)
-    email = models.EmailField(unique=True ,max_length=50)
+    nombre = models.CharField(max_length=100)
+    apellido = models.CharField(max_length=100)
+    email = models.EmailField(unique=True, max_length=254)
     telefono  = models.CharField(max_length=15)
     fecha_nacimiento = models.DateField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -141,7 +141,7 @@ class Ingrediente(models.Model):
 
 # Modelo de cada plato
 class Plato(models.Model):
-    nombre = models.CharField(max_length=50)
+    nombre = models.CharField(max_length=100)
     preparacion = models.TextField(verbose_name="Preparacion", blank=True, default="")
 
     def calcular_macros(self, nombre_macro):
