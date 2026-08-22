@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/6.0/ref/settings/
 import os
 from pathlib import Path
 
+import dj_database_url
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -31,7 +33,17 @@ SECRET_KEY = os.environ.get(
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.environ.get("DJANGO_DEBUG", "true").lower() == "true"
 
-ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS", "").split(",") if os.environ.get("DJANGO_ALLOWED_HOSTS") else []
+def _lista_de_entorno(variable, por_defecto=""):
+    """Lee una variable de entorno separada por comas y descarta los vacios."""
+    return [item.strip() for item in os.environ.get(variable, por_defecto).split(",") if item.strip()]
+
+
+ALLOWED_HOSTS = _lista_de_entorno("DJANGO_ALLOWED_HOSTS")
+
+# Render publica el dominio del servicio en esta variable; lo agregamos solo.
+_host_render = os.environ.get("RENDER_EXTERNAL_HOSTNAME")
+if _host_render:
+    ALLOWED_HOSTS.append(_host_render)
 
 
 # Application definition
@@ -52,6 +64,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -83,11 +96,13 @@ WSGI_APPLICATION = 'kuna.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
+# En local cae a SQLite; en produccion se define DATABASE_URL (Supabase).
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    "default": dj_database_url.config(
+        default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
+        conn_max_age=600,
+        conn_health_checks=True,
+    )
 }
 
 
@@ -125,11 +140,39 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
-STATIC_URL = 'static/'
+STATIC_URL = "static/"
+STATIC_ROOT = BASE_DIR / "staticfiles"
 
-CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-]
+# WhiteNoise sirve los estaticos del admin, comprimidos y con hash en el nombre.
+STORAGES = {
+    "default": {
+        "BACKEND": "django.core.files.storage.FileSystemStorage",
+    },
+    "staticfiles": {
+        "BACKEND": "whitenoise.storage.CompressedManifestStaticFilesStorage",
+    },
+}
+
+# Origenes del frontend habilitados para consumir la API.
+CORS_ALLOWED_ORIGINS = _lista_de_entorno(
+    "DJANGO_CORS_ALLOWED_ORIGINS", "http://localhost:5173"
+)
+
+# Necesario para poder autenticarse en el admin sobre HTTPS.
+CSRF_TRUSTED_ORIGINS = _lista_de_entorno("DJANGO_CSRF_TRUSTED_ORIGINS")
+
+# Render termina el TLS en su proxy: sin esto Django cree que la conexion es HTTP.
+SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+# Endurecimiento para produccion. Se activa solo cuando DEBUG esta apagado, para
+# no romper el servidor de desarrollo, que habla HTTP plano.
+if not DEBUG:
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    # HSTS acotado a este host: sin includeSubDomains ni preload, porque el
+    # dominio es compartido y esa decision no seria facil de revertir.
+    SECURE_HSTS_SECONDS = 3600
 
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ["django_filters.rest_framework.DjangoFilterBackend"],
