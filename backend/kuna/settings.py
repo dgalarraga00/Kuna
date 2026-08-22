@@ -96,7 +96,10 @@ WSGI_APPLICATION = 'kuna.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/6.0/ref/settings/#databases
 
-# En local cae a SQLite; en produccion se define DATABASE_URL (Supabase).
+# En local cae a SQLite; en produccion se define DATABASE_URL (Neon).
+# conn_health_checks es lo que sostiene las conexiones persistentes frente al
+# scale-to-zero de Neon: Django verifica la conexion antes de reutilizarla y
+# reconecta si el servidor se durmio, en lugar de fallar la primera consulta.
 DATABASES = {
     "default": dj_database_url.config(
         default=f"sqlite:///{BASE_DIR / 'db.sqlite3'}",
@@ -104,6 +107,13 @@ DATABASES = {
         conn_health_checks=True,
     )
 }
+
+# El endpoint "-pooler" de Neon es PgBouncer en modo transaccion: la conexion
+# vuelve al pool al terminar cada transaccion, asi que un cursor del lado del
+# servidor no sobrevive hasta la siguiente. Se detecta por el host para que la
+# cadena de conexion siga siendo lo unico que haya que configurar.
+if "-pooler" in (DATABASES["default"].get("HOST") or ""):
+    DATABASES["default"]["DISABLE_SERVER_SIDE_CURSORS"] = True
 
 
 # Password validation

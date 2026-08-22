@@ -1,5 +1,5 @@
 # Infraestructura del backend en Render.
-# La base de datos vive en Supabase, por eso aca solo se declara el servicio web.
+# La base de datos vive en Neon, por eso aca solo se declara el servicio web.
 services:
   - type: web
     name: kuna-api

@@ -167,15 +167,25 @@ sexo definido (`M` o `F`); con sexo `N` estos valores devuelven `null`.
 
 | Componente | Plataforma | Configuración |
 | ---------- | ---------- | ------------- |
-| Base de datos | Supabase | Postgres gestionado |
+| Base de datos | Neon | Postgres gestionado |
 | Backend | Render | Definido en `render.yaml` |
 | Frontend | Vercel | Definido en `frontend/vercel.json` |
 
-### Supabase
+### Neon
 
-Crear el proyecto y copiar la cadena de conexión del **Session Pooler**, no la conexión
-directa: esta última resuelve solo por IPv6 y Render no la alcanza. Esa cadena es el valor de
-`DATABASE_URL` en Render.
+Crear el proyecto y copiar la cadena de conexión: ese es el valor de `DATABASE_URL` en
+Render.
+
+Neon ofrece dos endpoints. Para este backend conviene el **directo**, porque Django mantiene
+conexiones persistentes (`conn_max_age`) y no necesita un pooler externo. Si aun así se usa
+el endpoint agrupado —el que lleva `-pooler` en el host—, `settings.py` lo detecta y
+desactiva los cursores del lado del servidor: ese endpoint es PgBouncer en modo transacción,
+donde un cursor no sobrevive de una transacción a la siguiente.
+
+El cómputo se suspende tras unos minutos sin actividad y vuelve a levantarse en la siguiente
+conexión. Por eso la configuración activa `conn_health_checks`: Django verifica la conexión
+antes de reutilizarla y reconecta si el servidor se durmió, en lugar de fallar la primera
+consulta.
 
 ### Render
 
@@ -202,7 +212,7 @@ Router en el cliente y no existe ese archivo en el servidor.
 
 Las URLs se referencian entre sí, así que conviene este orden:
 
-1. Crear la base en Supabase y obtener `DATABASE_URL`.
+1. Crear la base en Neon y obtener `DATABASE_URL`.
 2. Desplegar el backend en Render con esa variable. Anotar su dominio.
 3. Desplegar el frontend en Vercel con `VITE_API_URL` apuntando al backend. Anotar su dominio.
 4. Volver a Render y completar `DJANGO_CORS_ALLOWED_ORIGINS` con el dominio de Vercel.
