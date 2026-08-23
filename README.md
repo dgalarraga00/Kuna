@@ -14,6 +14,8 @@ planes se arman con platos compuestos por ingredientes, y pueden exportarse a PD
 | API | <https://kuna-api.onrender.com/api/> |
 | Administración | <https://kuna-api.onrender.com/admin/> |
 
+![Listado de pacientes](docs/pacientes.png)
+
 ## Stack
 
 | Capa     | Tecnología                                                        |
@@ -141,6 +143,8 @@ Todos exponen el CRUD completo mediante `ModelViewSet`.
 | `/planes/<id>/comparar/`        | GET    | Compara los objetivos del plan contra los totales reales de sus platos |
 | `/planes/<id>/pdf/`             | GET    | Exporta el plan nutricional a PDF                                  |
 
+![Detalle de plan](docs/plan.png)
+
 ## Modelo de datos
 
 ```
@@ -158,6 +162,8 @@ Paciente ──< Medicion ──< Plan ──< TiempoComida >──< Plato ─�
 - **Plato** / **Componente** / **Ingrediente** — un plato se compone de ingredientes con un
   gramaje determinado; los macros del plato se calculan a partir de esa composición.
 
+![Detalle de paciente](docs/detalle-paciente.png)
+
 ## Cálculos
 
 Los valores derivados se exponen en la API como campos de solo lectura.
@@ -165,7 +171,7 @@ Los valores derivados se exponen en la API como campos de solo lectura.
 | Valor                        | Método                                                     |
 | ---------------------------- | ---------------------------------------------------------- |
 | IMC                          | `peso / talla²`                                            |
-| Porcentaje de grasa          | Jackson-Pollock de 3 pliegues, con fórmula según sexo       |
+| Porcentaje de grasa          | Jackson-Pollock de 3 pliegues + fórmula de Siri             |
 | Gasto energético basal (GEB) | Mifflin-St Jeor                                             |
 | Gasto energético total (GET) | GEB × factor de actividad física                            |
 | Calorías objetivo            | GET × factor del objetivo del plan (0.8 / 1.0 / 1.2)        |
@@ -173,8 +179,42 @@ Los valores derivados se exponen en la API como campos de solo lectura.
 | Grasas                       | 0.8 g por kg de peso corporal                               |
 | Carbohidratos                | Calorías restantes tras descontar proteínas y grasas, ÷ 4   |
 
-El cálculo del porcentaje de grasa y del gasto energético requiere que el paciente tenga
-sexo definido (`M` o `F`); con sexo `N` estos valores devuelven `null`.
+La composición corporal usa las ecuaciones de Jackson-Pollock de 3 pliegues y la fórmula de
+Siri para convertir densidad corporal en porcentaje de grasa. Cada sexo tiene su propio
+protocolo, y los sitios de medición no son los mismos:
+
+|           | Pliegue 1 | Pliegue 2    | Pliegue 3 |
+| --------- | --------- | ------------ | --------- |
+| Masculino | Pecho     | Abdomen      | Muslo     |
+| Femenino  | Tríceps   | Suprailíaco  | Muslo     |
+
+El formulario etiqueta los campos según el paciente, para que no se mida el sitio
+equivocado. El cálculo del porcentaje de grasa y del gasto energético requiere que el
+paciente tenga sexo definido (`M` o `F`); con sexo `N` estos valores devuelven `null`.
+
+![Formulario de medición](docs/medicion.png)
+
+## Decisiones de diseño
+
+**Los cálculos viven en el modelo, no en la vista.** IMC, porcentaje de grasa, gasto
+energético y macros objetivo son `@property` de `Medicion` y `Plan`, y se exponen en la API
+con `ReadOnlyField` y `SerializerMethodField`. El frontend no recalcula nada: si una fórmula
+cambia, cambia en un solo lugar.
+
+**El plan cuelga de una medición, no del paciente.** Un plan nutricional se prescribe a
+partir de un estado corporal concreto y medido. Atarlo directamente al paciente perdería esa
+trazabilidad.
+
+**El filtrado ocurre en el servidor.** Los listados se filtran con django-filter en vez de
+traer la tabla entera y filtrar en el cliente. `PlatoViewSet` usa `prefetch_related` para
+evitar el problema N+1 al calcular los macros de cada plato.
+
+**Un solo cliente HTTP en el frontend.** Todas las llamadas pasan por `apiFetch`, que
+centraliza el manejo de errores de DRF y los normaliza a un mensaje legible.
+
+**La configuración se lee del entorno, no del código.** La base de datos, los orígenes
+permitidos y las claves cambian según dónde corra la aplicación, así que no viven en el
+repositorio. El mismo código sirve en desarrollo y en producción sin ramificaciones.
 
 ## Despliegue
 
@@ -260,4 +300,8 @@ SQLite local.
 - **La API no tiene autenticación.** Todos los endpoints son públicos. Es adecuado para un
   proyecto de aprendizaje, pero no para manejar datos clínicos reales.
 - **Los tests no se ejecutan automáticamente.** `backend/api/tests.py` existe, pero no hay
-  integración continua que lo corra en cada cambio.
+  integración continua que lo corra en cada cambio. El frontend no tiene tests.
+- **El protocolo de medición no queda guardado en cada `Medicion`.** Los sitios de los
+  pliegues se derivan del sexo actual del paciente, así que si ese dato cambia, las
+  mediciones históricas pasan a interpretarse con el protocolo equivocado. Guardar el
+  protocolo usado en el propio registro lo resolvería.
